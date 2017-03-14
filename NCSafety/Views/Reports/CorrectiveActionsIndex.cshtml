@@ -1,0 +1,89 @@
+﻿@*@model IEnumerable<NCSafety.ViewModels.CorrectiveActionReportsVM>*@
+@model NCSafety.ViewModels.CorrectiveActionReportsVM
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+    function ToggleDisplay(id, btn) {
+        var s = document.getElementById(id);
+        var b = document.getElementById(btn);
+        if (s.style.display == 'none') {
+            s.style.display = 'block';
+            b.value = 'Close Search';
+        }
+        else {
+            s.style.display = 'none';
+            b.value = 'Search';
+        }
+    }
+</script>
+@if (!User.IsInRole("SuperAdmin") && User.Identity.IsAuthenticated)
+{
+    <div style="margin:auto;margin-top:10%;text-align:center">
+        <h2>You are not authorized to view this page.</h2>
+        <h2 style="margin-bottom:30px">Please log into a higher security account or register.</h2>
+        <button class="btn ncBtn" onclick="window.location = '/Account/Login'">Log In</button>
+        <button class="btn ncBtn" onclick="window.location='/Account/Register'">Register</button>
+    </div>
+}
+@if (User.IsInRole("SuperAdmin"))
+{
+    <h2>Corrective Actions Reports</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <p>
+        <input type="button" id="btnSearchToggle" onclick="ToggleDisplay('searchTable','btnSearchToggle')" class="btn ncBtn" value="Search" />
+    </p>
+    <div class="col-md-6 col-lg-8" id="searchTable" style="display:none">
+        @using (Html.BeginForm())
+        {
+
+            <table class="table table-condensed">
+                <tr>
+                    <td>Search for Hazard: </td>
+                    <td>@Html.TextBox("HazardID", null, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>Search for School: </td>
+                    <td>@Html.TextBox("SchoolID", null, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>Search for Lab: </td>
+                    <td>@Html.TextBox("LabID", null, new { @class = "form-control" })</td>
+                </tr>
+                @*<tr>
+                        <td>Search by Completion Date:</td>
+                        <td>@Html.DropDownList("CompletionDateID", null, "All Associate Deans", htmlAttributes: new { @class = "form-control" })</td>
+                    </tr>*@
+                @*<tr>
+                        <td>Search for Associate Dean's Email:</td>
+                        <td>@Html.TextBox("DeanEmailID", null, new { @class = "form-control", @placeholder = "name@emailservice.com" })</td>
+                    </tr>
+                    <tr>
+                        <td>Search for Assistant's Email:</td>
+                        <td>@Html.TextBox("AssistantEmailID", null, new { @class = "form-control", @placeholder = "name@emailservice.com" })</td>
+                    </tr>*@
+                <tr>
+                    <td><input type="button" value="Search" class="btn ncBtn" onclick="window.location='/Reports/InProgress'" /> <input type="button" value="Clear" class="btn ncBtn" onclick="window.location='Index'" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+}

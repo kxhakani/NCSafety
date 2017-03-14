@@ -1,0 +1,177 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Saved Drafts";
+    @section Selectivity{
+        <link href="~/Content/selectivity-jquery.css" rel="stylesheet">
+        <script src="~/Scripts/selectivity-jquery.js"></script>}
+    @section Bootstrap3DatePicker{
+        <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+        <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />}
+}
+<script>
+    function ExpandInspection(num)
+    {
+        tr = document.getElementById('inspec' + num);
+        btn = document.getElementById('expand' + num);
+        if(tr.style.display=='none')
+        {
+            tr.style.display = 'block';
+            btn.value = "\u2228";
+        }
+        else
+        {
+            tr.style.display = 'none';
+            btn.value = '\u276F';
+        }
+
+
+    }
+    //Selectivity
+    $(function () {
+        $('#ddlLabs').selectivity({
+            allowClear: true,
+            items: [{
+                id: 'Media',
+                text: 'School of Media',
+                submenu: {
+                    items: [
+                        { id: 1, text: 'V001' }, { id: 2, text: 'V002' }, { id: 3, text: 'V105' }, { id: 4, text: 'V106' }, { id: 5, text: 'V110' },
+                        { id: 6, text: 'V11a' }, { id: 7, text: 'V116' }, { id: 8, text: 'S333' }, { id: 9, text: 'S339' }, { id: 10, text: 'Engineering Office' },
+                        { id: 11, text: 'Equipment Room' }, { id: 12, text: 'Film Equipment Storage' }, { id: 13, text: 'Green Room' }
+                        /*, ...*/
+                    ],
+                    showSearchInput: true
+                }
+            },
+            {
+                id: 'Trades',
+                text: 'School of Trades',
+                submenu: {
+                    items: [
+                        { id: 14, text: 'TC02' }, { id: 15, text: 'TC04' }, { id: 16, text: 'TC12' }, { id: 17, text: 'TC14' }, { id: 18, text: 'TC14A' },
+                        { id: 19, text: 'TC40' }, { id: 20, text: 'TC42' }, { id: 21, text: 'TC76' }, { id: 22, text: 'TC77' }, { id: 23, text: 'Outside House/Trainer' }
+                        /*, ...*/
+                    ],
+                    showSearchInput: true
+                }
+            },
+            {
+                id: 'Technology',
+                text: 'School of Technology',
+                submenu: {
+                    items: [
+                        { id: 24, text: 'L116' }, { id: 25, text: 'L117' }, { id: 26, text: 'L118' }, { id: 27, text: 'L119' }, { id: 28, text: 'V111' },
+                        { id: 29, text: 'V112' }, { id: 30, text: 'V114' }, { id: 31, text: 'V115' }, { id: 32, text: 'TC33' }, { id: 33, text: 'TC34' },
+                        { id: 34, text: 'TC36' }, { id: 35, text: 'TC38' }, { id: 36, text: 'TC65' }
+                        /*, ...*/
+                    ],
+                    showSearchInput: true
+                }
+            }/*, ...*/],
+            placeholder: 'Select a lab...',
+            showSearchInputInDropdown: false
+        });
+    });
+    // Date picker
+    $(function () {
+        $('#datetimepicker4').datetimepicker({
+            format: 'MM/DD/YYYY'
+        });
+    });
+    // Drop Down List
+    $(function () {
+
+        $("#ddlUser li a").click(function () {
+
+            $('#btnUser').text($(this).text());
+            $('#btnUser').val($(this).text());
+
+        });
+
+    });
+</script>
+<br />
+<h2>Saved Drafts</h2>
+<br />
+<input type="button" id="btnSearch" value="Search" class="btn ncBtn" onclick="b = document.getElementById('Search'); if (b.style.display == 'none') { b.style.display = 'block'; document.getElementById('btnSearch').value = 'Close Search'; } else { b.style.display = 'none'; document.getElementById('btnSearch').value = 'Search';}" />
+<br /><br />
+<div id="Search" style="display:none">
+    <div class="col-md-6 col-lg-8">
+        @using (Html.BeginForm())
+        {
+
+            <table class="table table-condensed">
+                <tr>
+                    <td>Date: </td>
+                    <td>
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <input type='text' class="form-control" id='datetimepicker4' style="background-color:#eee;height:40px" placeholder="Select a date..." />
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lab:</td>
+                    <td>
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <div id="ddlLabs" class="selectivity-input" style="width:280px;background-color: #eee;
+  background-image: none;
+  border: 1px solid #ccc;
+  padding-left:5px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+       -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>User:</td>
+                    <td>
+                        <div id="ddlUser" class="dropdown" style="display:inline-block">
+                            <button id="btnUser" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#ddd;color:black;border:none;font-size:small">
+                                Select a user...
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Kevin</a></li>
+                                <li><a href="#">SuperAdmin</a></li>
+                                <li><a href="#">Joe</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Filter" class="btn ncBtn" /> <input type="button" value="Clear" class="btn ncBtn" onclick="window.location='/InspectionPages/ListInspection'" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+<div id="Inspections">
+    <table class="table table-responsive" style="table-layout:fixed;width:100%">
+        <tr>
+            <th>Lab</th>
+            <th>School</th>
+            <th>Date</th>
+            <th>User</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>TC14</td>
+            <td>Trades</td>
+            <td>02/10/2017</td>
+            <td>SuperAdmin1</td>
+            <td><a href="/InspectionPages/ViewInspection"><div class="glyphicon glyphicon-eye-open" style="margin-right:30px"></div></a><a href="/InspectionPages/EditInspection"><div class="glyphicon glyphicon-pencil"></div></a></td>
+        </tr>
+    </table>
+</div>

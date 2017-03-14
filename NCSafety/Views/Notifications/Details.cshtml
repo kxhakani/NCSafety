@@ -1,0 +1,86 @@
+﻿@*@model NCSafety.Models.Item*@
+
+@model NCSafety.ViewModels.CorrectiveActionNotificationsVM
+
+@{
+    ViewBag.Title = "Details";
+}
+<br />
+<div style="margin:auto;margin-top:10%;text-align:center">
+    <h2>Notifications</h2>
+    <br />
+    <button class="btn ncBtn" onclick="window.location='/Notifications/AllDetails'">All</button>
+    <button class="btn ncBtn" onclick="window.location = '/Notifications/Details'">Corrective Actions</button>
+    <button class="btn ncBtn" onclick="window.location='/Notifications/InspectionDetails'">Inspections</button>
+</div>
+<br />
+<br />
+<h2>Past Due Corrective Actions</h2>
+
+<br />
+<h4>Lab V001: Corrective Action</h4>
+<div>
+    <h5>Inspected on: January 3rd, 2017 </h5>
+    <p>
+        Follwing corrective action(s) are past due:
+        <ul>
+            <li>Exhaust of Dust</li>
+        </ul>
+    </p>
+    <button class="btn ncBtn" onclick="window.location='/Notifications/Details'">Notify Inspector</button>
+</div>
+<br />
+<h4>Lab V11: Corrective Action</h4>
+<div>
+    <h5>Inspected on: February 17th, 2017 </h5>
+</div>
+<p>Follwing corrective action(s) are past due:</p>
+<ul>
+    <li>Broken Gaurd</li>
+</ul>
+<button class="btn ncBtn" onclick="window.location='/Notifications/Details'">Notify Inspector</button>
+
+
+@*<div>
+        <h4>Corrective Action</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.HazardID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.HazardID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.itemCorrActionDue)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.itemCorrActionDue)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.itemCorrActionCompleted)
+            </dd>
+
+        </dl>
+    </div>*@
+<br />
+<br />
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

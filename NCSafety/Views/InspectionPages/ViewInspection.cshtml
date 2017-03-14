@@ -1,0 +1,89 @@
+﻿@model NCSafety.Models.Item
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Confirm Inspection";
+    ViewBag.Edit = "";
+
+    @section Selectivity{
+        <link href="~/Content/selectivity-jquery.css" rel="stylesheet">
+        <script src="~/Scripts/selectivity-jquery.js"></script>}
+
+    @section Bootstrap3DatePicker{
+        <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+        <script src="~/Scripts/NCSafetyScripts.js"></script>
+        <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />}
+}
+<script>
+    $(document).on('change', '#isGood', function () {
+        if (this.checked == true)
+            $('#isFault').prop('checked', false);
+    });
+    $(document).on('change', '#isFault', function () {
+        if (this.checked == true)
+            $('#isGood').prop('checked', false);
+    });
+</script>
+<br />
+<h2>New Inspection</h2>
+<br />
+<form id="frmNewInspection" action="/Home/Index">
+    <div id="setup" style="padding:5px 0px 10px 25px;background-color:#ddd;border-radius: 4px">
+        <div id="date">
+            <h3 style="margin-right:15px;display:inline-block">Date:</h3><p style="font-weight:bolder;font-size:larger;display:inline-block">2017/07/10</p>
+        </div>
+        <div id="lab">
+            <h3 style="display:inline-block;margin-right:25px">Lab:</h3><p style="font-weight:bolder;font-size:larger;display:inline-block">V115 (Media)</p>
+        </div>
+    </div>
+    <br />
+    <h3>Hazards:</h3>
+    <div>
+        <table class="table" id="hazardTable">
+            <tr>
+                <th>Type</th>
+                <th>Good</th>
+                <th>Fault</th>
+                <th>Corrective Action</th>
+                <th>Due Date</th>
+                <th>Completed Date</th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DropDownList("HazardID", null, "Guard missing", htmlAttributes: new { @class = "form-control", @style = "width:210px;margin-right:10px", @selected=2, @disabled="disabled" })
+                    @Html.ValidationMessageFor(model => model.HazardID, "", new { @class = "text-danger" })
+                </td>
+                <td style="text-align:center">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isGood, new { htmlAttributes = new { @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.isGood, "", new { @class = "text-danger"})
+                    </div>
+                </td>
+                <td style="text-align:center">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.isFault, new { @checked = "checked", @disabled="disabled" })
+                        @Html.ValidationMessageFor(model => model.isFault, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.itemComment, new { htmlAttributes = new { @class = "form-control", @style = "width:300px", @Value="Find the guard", @readOnly=true } })
+                    @Html.ValidationMessageFor(model => model.itemComment, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <div class="row"><div class="col-lg-10">@Html.TextBox("DueDateID", null, new { @class = "form-control datetimepicker", @placeholder = "2017/07/10", @readOnly=true })</div></div>
+                    @Html.ValidationMessageFor(model => model.itemCorrActionDue, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <div class="row"><div class="col-lg-10">@Html.TextBox("CompDateID", null, new { @class = "form-control datetimepicker", @placeholder = "Not completed", @readOnly=true })</div></div>
+                    @Html.ValidationMessageFor(model => model.itemCorrActionCompleted, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </table>
+        <input type="button" value="+ Hazard" onclick="addRow('hazardTable')" class="btn btn-default" />
+    </div>
+    <br />
+    <input type="submit" value="Submit" class="btn ncBtn" />
+    <input type="submit" value="Save Draft" class="btn ncBtn" />
+    <input type="button" value="Cancel" class="btn btn-default" onclick="window.location='/Home/Index'" />
+</form>

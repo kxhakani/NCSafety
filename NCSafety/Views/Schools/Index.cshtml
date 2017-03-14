@@ -1,0 +1,106 @@
+﻿@model IEnumerable<NCSafety.Models.School>
+
+@{
+    ViewBag.Title = "Index";
+
+    @section Selectivity{
+        <link href="~/Content/selectivity-jquery.css" rel="stylesheet">
+        <script src="~/Scripts/selectivity-jquery.js"></script>
+        <script src="~/Scripts/NCSafetyScripts.js"></script>}
+}
+@if (!User.IsInRole("SuperAdmin") && User.Identity.IsAuthenticated)
+{
+    <div style="margin:auto;margin-top:10%;text-align:center">
+        <h2>You are not authorized to view this page.</h2>
+        <h2 style="margin-bottom:30px">Please log into a higher security account or register.</h2>
+        <button class="btn ncBtn" onclick="window.location = '/Account/Login'">Log In</button>
+        <button class="btn ncBtn" onclick="window.location='/Account/Register'">Register</button>
+    </div>
+}
+
+@if (User.IsInRole("SuperAdmin"))
+{
+    <br />
+<h2>Schools</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    <input type="button" id="btnSearchToggle" onclick="ToggleDisplay('searchTable','btnSearchToggle')" class="btn ncBtn" value="Search" />
+</p>
+<div class="col-md-6 col-lg-8" id="searchTable" style="display:none">
+    @using (Html.BeginForm())
+    {
+
+        <table class="table table-condensed">
+            <tr>
+                <td>School: </td>
+                <td>@Html.DropDownList("SchoolID", null, "Select a school...", htmlAttributes: new { @class = "selectivity-input ddl" })<div class="glyphicon glyphicon-remove btnClear" style="cursor:pointer;margin-left:10px;display:none" /></td>
+            </tr>
+            <tr>
+                <td>Associate Dean:</td>
+                <td>@Html.DropDownList("DeanID", null, "Select an Associate Dean...", htmlAttributes: new { @class = "selectivity-input ddl" })<div class="glyphicon glyphicon-remove btnClear" style="cursor:pointer;margin-left:10px;display:none" /></td>
+            </tr>
+            <tr>
+                <td>Associate Dean's Email:</td>
+                <td>@Html.DropDownList("DeanEmailID", null, "Select an email address...", htmlAttributes: new { @class = "selectivity-input ddl" })<div class="glyphicon glyphicon-remove btnClear" style="cursor:pointer;margin-left:10px;display:none" /></td>
+            </tr>
+            <tr>
+                <td>Assistant's Email:</td>
+                <td>@Html.DropDownList("AssistantEmailID", null, "Select an email address...", htmlAttributes: new { @class = "selectivity-input ddl" })<div class="glyphicon glyphicon-remove btnClear" style="cursor:pointer;margin-left:10px;display:none" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Search" class="btn ncBtn" /></td><td><input type="button" value="Clear" class="btn ncBtn" onclick="window.location='Index'" /></td>
+            </tr>
+        </table>
+    }
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.schName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ascDeanFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ascDeanEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ascDeanAssistantEmail)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.schName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ascDeanFullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ascDeanEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ascDeanAssistantEmail)
+        </td>
+        <td>
+            <a href="/Schools/Edit/@item.ID"><div class="glyphicon glyphicon-pencil" style="margin-right:30px"></div></a>
+            <a href="/Schools/Details/@item.ID"><div class="glyphicon glyphicon-eye-open" style="margin-right:30px"></div></a>
+            <a href="/Schools/Delete/@item.ID"><div class="glyphicon glyphicon-remove"></div></a>
+        </td>
+    </tr>
+}
+
+</table>
+    if(Model.Count() == 0)
+    {
+        <h3>No Records Found.</h3>
+        <br />
+        <a href="/Schools/Create" class="btn ncBtn">Add School</a>
+    }
+}

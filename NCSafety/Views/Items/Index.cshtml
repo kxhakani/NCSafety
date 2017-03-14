@@ -1,0 +1,192 @@
+﻿@model IEnumerable<NCSafety.Models.Item>
+
+@{
+    ViewBag.Title = "Index";
+
+    @section Selectivity{
+        <link href="~/Content/selectivity-jquery.css" rel="stylesheet">
+        <script src="~/Scripts/selectivity-jquery.js"></script>
+        <script src="~/Scripts/NCSafetyScripts.js"></script>}
+    @section Bootstrap3DatePicker{
+        <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+        <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />}
+}
+@if (!User.IsInRole("SuperAdmin") && User.Identity.IsAuthenticated)
+{
+    <div style="margin:auto;margin-top:10%;text-align:center">
+        <h2>You are not authorized to view this page.</h2>
+        <h2 style="margin-bottom:30px">Please log into a higher security account or register.</h2>
+        <button class="btn ncBtn" onclick="window.location = '/Account/Login'">Log In</button>
+        <button class="btn ncBtn" onclick="window.location='/Account/Register'">Register</button>
+    </div>
+}
+@if (User.IsInRole("SuperAdmin"))
+{
+    <br />
+<h2>Items</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    <input type="button" id="btnSearchToggle" onclick="ToggleDisplay('searchTable','btnSearchToggle')" class="btn ncBtn" value="Search" />
+</p>
+<div class="col-md-6 col-lg-8" id="searchTable" style="display:none">
+    @using (Html.BeginForm())
+    {
+
+        <table class="table table-condensed">
+            <tr>
+                <td>Hazard: </td>
+                <td>@Html.DropDownList("HazardID", null, "Select a hazard...", htmlAttributes: new { @class = "selectivity-input ddl" })<div class="glyphicon glyphicon-remove btnClear" style="cursor:pointer;margin-left:10px;display:none" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Inspection ID: </td>
+                <td>@Html.DropDownList("InspectionID", null, "Select an inspection...", htmlAttributes: new { @class = "selectivity-input ddl" })<div class="glyphicon glyphicon-remove btnClear" style="cursor:pointer;margin-left:10px;display:none" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Inspection Date:</td>
+                <td>
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            @Html.TextBox("InspDateID", null, new { @class = "form-control datetimepicker", @style = "background-color:#eee;height:40px;width:280px", @placeholder = @DateTime.Today.ToShortDateString() })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Inspection Date Range:</td>
+                <td>
+                    <div>From:</div>
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            @Html.TextBox("FromDateID", null, new { @class = "form-control datetimepicker", @style = "background-color:#eee;height:40px;width:280px", @placeholder = @DateTime.Today.ToShortDateString() })
+                        </div>
+                    </div>
+                    <div>To:</div>
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            @Html.TextBox("ToDateID", null, new { @class = "form-control datetimepicker", @style = "background-color:#eee;height:40px;width:280px", @placeholder = @DateTime.Today.ToShortDateString() })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Due Date:</td>
+                <td>
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            @Html.TextBox("DueDateID", null, new { @class = "form-control datetimepicker", @style = "background-color:#eee;height:40px;width:280px", @placeholder = @DateTime.Today.ToShortDateString() })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Completed Date:</td>
+                <td>
+                    <div class="row">
+                        <div class='col-sm-6'>
+                            @Html.TextBox("CompDateID", null, new { @class = "form-control datetimepicker", @style = "background-color:#eee;height:40px;width:280px", @placeholder = @DateTime.Today.ToShortDateString() })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Good Items</td>
+                <td>@Html.CheckBox("isGood", true)</td>
+            </tr>
+            <tr>
+                <td>Fault Items</td>
+                <td>@Html.CheckBox("isFault", true)</td>
+            </tr>
+            <tr>
+                <td>Comment: </td>
+                <td>@Html.TextBox("SearchString", null, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Search" class="btn ncBtn" /></td>
+                <td><input type="button" value="Clear" class="btn ncBtn" onclick="window.location='Index'" /></td>
+            </tr>
+        </table>
+    }
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Hazard Picture
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hazard.hazName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inspection.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isGood)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isFault)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemCorrActionDue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemComment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @{ 
+                if(item.imageContent != null && item.imageMimeType.Contains("image"))
+                {
+                    string imageBase64 = Convert.ToBase64String(item.imageContent);
+                    string imageSrc = string.Format("data:" + item.imageMimeType + ";base64,{0}", imageBase64);
+                    <img src="@imageSrc" style="max-height:100px; max-width:120px" class="img-responsive img-rounded"/>
+                }
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hazard.hazName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Inspection.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isGood)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isFault)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemCorrActionDue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemCorrActionCompleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemComment)
+        </td>
+        <td>
+            <a href="/Items/Edit/@item.ID"><div class="glyphicon glyphicon-pencil" style="margin-right:30px"></div></a>
+            <a href="/Items/Details/@item.ID"><div class="glyphicon glyphicon-eye-open" style="margin-right:30px"></div></a>
+            <a href="/Items/Delete/@item.ID"><div class="glyphicon glyphicon-remove"></div></a>
+        </td>
+    </tr>
+}
+
+</table>
+if(Model.Count() == 0)
+    {
+        <h3>No Records Found.</h3>
+        <br />
+        <a href="/Items/Create" class="btn ncBtn">Add Item</a>
+    }
+}

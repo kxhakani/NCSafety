@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = "Calendar";
+
+    @section NCStyle {
+        <link href="~/Content/ncStyle.css" rel="stylesheet" type="text/css">
+    }
+}
+
+@section scripts{
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'today',
+                    center: 'prev title next',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+
+                defaultView: 'month',
+                selectable: true,
+                selectHelper: true,
+                editable: true,
+                eventLimit: true,
+                //allDaySlot: false,
+                //slotMinutes: 15,
+                events: "/home/getevents/"
+            });
+        });
+    </script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var calendar = $('#calendar').fullCalendar(
+			{
+			    header:
+				{
+				    left: 'today',
+				    center: 'prev title next',
+				    right: 'month,agendaWeek,agendaDay'
+				},
+
+			    defaultView: 'month',
+
+			    selectable: true,
+			    selectHelper: true,
+
+			    select: function (start, end, allDay) {
+			        /*
+						after selection user will be promted for enter title for event.
+					*/
+			        var title = prompt('Event Title:');
+			        /*
+						if title is enterd calendar will add title and event into fullCalendar.
+					*/
+			        if (title) {
+			            calendar.fullCalendar('renderEvent',
+							{
+							    title: title,
+							    start: start,
+							    end: end,
+							    allDay: allDay
+							},
+							true // make the event "stick"
+						);
+			        }
+			        calendar.fullCalendar('unselect');
+			    },
+			    editable: true,
+			    eventColor: '#0073CF'
+			});
+        });
+</script>
+}
+
+<div class="col-md-12">
+    <div id="calendar"></div>
+</div>

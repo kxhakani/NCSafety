@@ -1,0 +1,37 @@
+﻿@model IEnumerable<NCSafety.Models.FAQ>
+
+@{
+    ViewBag.Title = "Index";
+    @section accordion {
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>}
+}
+
+<script>
+  $( function() {
+      $(".accordion").accordion({ header: "h3", collapsible: true, active: true });
+  } );
+</script>
+
+<h2>Frequently Asked Questions</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@foreach (var item in Model)
+{
+    <div class="accordion">
+        <h3>@Html.DisplayFor(modelItem => item.faqQuestion)</h3>
+        <div>
+            <p>
+                @Html.DisplayFor(modelItem => item.faqAnswer)
+            </p>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </div>
+    </div>
+}

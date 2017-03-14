@@ -1,0 +1,67 @@
+﻿@model NCSafety.Models.Inspection
+
+@{
+    ViewBag.Title = "Create";
+}
+@if (!User.IsInRole("SuperAdmin") && User.Identity.IsAuthenticated)
+{
+    <div style="margin:auto;margin-top:10%;text-align:center">
+        <h2>You are not authorized to view this page.</h2>
+        <h2 style="margin-bottom:30px">Please log into a higher security account or register.</h2>
+        <button class="btn ncBtn" onclick="window.location = '/Account/Login'">Log In</button>
+        <button class="btn ncBtn" onclick="window.location='/Account/Register'">Register</button>
+    </div>
+}
+
+@if (User.IsInRole("SuperAdmin"))
+{
+    <h2>New Inspection</h2>
+
+
+    using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Inspection</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchoolID, "School", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SchoolID", null, "Select a School", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SchoolID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LabID, "Lab", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LabID", null, "Select a Lab", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LabID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.inspDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.inspDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.inspDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

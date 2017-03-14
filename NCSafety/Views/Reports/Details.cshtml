@@ -1,0 +1,66 @@
+﻿@model NCSafety.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Inspection.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inspection.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemHazComment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemHazComment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemCorrActionDt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemCorrActionDt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemCorrActionCompleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemComment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemComment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

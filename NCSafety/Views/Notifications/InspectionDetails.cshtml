@@ -1,0 +1,85 @@
+﻿@*@model NCSafety.Models.Item*@
+
+@model NCSafety.ViewModels.CorrectiveActionNotificationsVM
+
+@{
+    ViewBag.Title = "InspectionDetails";
+}
+<br />
+<div style="margin:auto;margin-top:10%;text-align:center">
+    <h2>Notifications</h2>
+    <br />
+    <button class="btn ncBtn" onclick="window.location='/Notifications/AllDetails'">All</button>
+    <button class="btn ncBtn" onclick="window.location = '/Notifications/Details'">Corrective Actions</button>
+    <button class="btn ncBtn" onclick="window.location='/Notifications/InspectionDetails'">Inspections</button>
+</div>
+<br />
+<br />
+<h2>Past Due Inspections</h2>
+<br />
+<div>
+    <h4>Lab TC02: Inspection</h4>
+    <div>
+        <h5>Inspected on: TBA </h5>
+        <p>
+            <ul>
+                <li>Inspection is past due.</li>
+            </ul>
+        </p>
+        <button class="btn ncBtn" onclick="window.location='/Notifications/Details'">Notify Inspector</button>
+    </div>
+    <dl class="dl-horizontal">
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Inspection.ID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Inspection.ID)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.itemArea)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.itemArea)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.itemHazComment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.itemHazComment)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.itemCorrActionDt)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.itemCorrActionDt)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.itemCorrActionCompleted)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.itemComment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.itemComment)
+            </dd>*@
+
+    </dl>
+</div>
+<br />
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

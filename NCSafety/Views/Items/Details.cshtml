@@ -1,0 +1,92 @@
+﻿@model NCSafety.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item</h4>
+    <div>
+        @{ if (Model.imageContent != null && Model.imageMimeType.Contains("image"))
+            {
+                string imageBase64 = Convert.ToBase64String(Model.imageContent);
+                string imageSrc = string.Format("data:" + Model.imageMimeType + ";base64,{0}", imageBase64);
+                <img src="@imageSrc" style="max-height:500px" class="img-responsive img-rounded" />
+            }
+        }
+    </div>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipment.eqName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipment.eqName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hazard.hazName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hazard.hazName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inspection.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inspection.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isGood)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isGood)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isFault)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isFault)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemCorrActionDue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemCorrActionDue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemCorrActionCompleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemComment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemComment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

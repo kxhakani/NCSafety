@@ -1,0 +1,60 @@
+﻿@model NCSafety.Models.Inspection
+
+@{
+    ViewBag.Title = "Delete";
+}
+@if (!User.IsInRole("SuperAdmin") && User.Identity.IsAuthenticated)
+{
+    <div style="margin:auto;margin-top:10%;text-align:center">
+        <h2>You are not authorized to view this page.</h2>
+        <h2 style="margin-bottom:30px">Please log into a higher security account or register.</h2>
+        <button class="btn ncBtn" onclick="window.location = '/Account/Login'">Log In</button>
+        <button class="btn ncBtn" onclick="window.location='/Account/Register'">Register</button>
+    </div>
+}
+@if (User.IsInRole("SuperAdmin"))
+{
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Inspection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lab.labBuilding)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lab.labBuilding)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.School.schName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.School.schName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.inspDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.inspDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+}

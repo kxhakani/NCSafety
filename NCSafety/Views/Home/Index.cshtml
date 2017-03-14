@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+    @section NCStyle {
+        <link href="~/Content/ncStyle.css" rel="stylesheet" type="text/css">
+    }
+}
+@if (User.Identity.IsAuthenticated)
+{
+<div class="hidden-xs">
+        <img src="~/Images/WellandCampus.jpg" style="margin-top:50px"/>
+    <br/>
+    <br/>
+    <h3>Welcome to NC Safety's new inspection application. Through this website, we will schedule, inspect and corrrect to help keep NC a safe place.</h3>
+</div>
+<div class="visible-xs-block">
+    <div class="row text-center">
+        <div class="col-xs-2">
+
+        </div>
+        <div class="col-sm-4 col-xs-4">
+            <a href="@Url.Action("NewInspection", "InspectionPages")">
+                <img src="~/Images/inspection.png" class="icon" />
+                <br />
+                Inspection
+            </a>
+            <a href="@Url.Action("Index", "Reports")">
+                <img src="~/Images/trends.png" class="icon" />
+                <br />
+                Reports
+            </a>
+            <a href="@Url.Action("Index", "Profile")">
+                <img src="~/Images/user.png" class="icon" />
+                <br />
+                Profile
+            </a>
+    </div>
+        <div class="col-sm-4 col-xs-4">
+            <a href="@Url.Action("Calendar", "Calendar")">
+                <img src="~/Images/calendar.png" class="icon" />
+                <br />
+                Calendar
+            </a>
+            <a href="@Url.Action("Index", "Notifications")">
+                <img src="~/Images/email.png" class="icon" />
+                <br />
+                Notifications
+            </a>
+            <a href="@Url.Action("Index", "FAQs")">
+                <img src="~/Images/help.png" class="icon" />
+                <br />
+                Help
+            </a>
+    </div>
+        <div class="col-xs-2">
+        
+        </div>
+    </div>
+</div>
+}

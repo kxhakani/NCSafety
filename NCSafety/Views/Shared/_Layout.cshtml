@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - NC Safety</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/ncStyle.css" rel="stylesheet" type="text/css">
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    @if (!User.Identity.IsAuthenticated && ViewBag.Title != "Log in" && ViewBag.Title != "Register")
+    {
+        <div style="margin:auto;margin-top:10%;text-align:center">
+            <h2>You are not authorized to view this page.</h2>
+            <h2 style="margin-bottom:30px">Please log in or register.</h2>
+            <button class="btn ncBtn" onclick="window.location = '/Account/Login'">Log In</button>
+            <button class="btn ncBtn" onclick="window.location='/Account/Register'">Register</button>
+        </div>
+    }
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="@Url.Action("Index", "Home")" style="text-decoration:none;color:#fff;font-size:20px;"><img src="~/Images/ncLogo.png" style="width:45px;margin:5px;" />Safety</a>
+
+                    @*@Html.ActionLink("NC Safety", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">Inspections<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("New Inspection", "NewInspection", "InspectionPages")</li>
+                                    <li>@Html.ActionLink("Review Inspections", "Index", "Inspections")</li>
+                                    <li>@Html.ActionLink("Saved Drafts", "DraftInspection", "InspectionPages")</li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Calendar", "Calendar", "Calendar")</li>
+    
+
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">Reports<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Corrective Actions", "CorrectiveActionsIndex", "Reports")</li>
+                                    <li>@Html.ActionLink("Inspections", "Index", "Reports")</li>
+                                    <li>@Html.ActionLink("All Inspections", "Index", "Reports")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer">Admin<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Schools", "Index", "Schools")</li>
+                                    <li>@Html.ActionLink("Labs", "Index", "Labs")</li>
+                                    <li>@Html.ActionLink("Inspections", "Index", "Inspections")</li>
+                                    <li>@Html.ActionLink("Items", "Index", "Items")</li>
+                                    <li>@Html.ActionLink("Hazards", "Index", "Hazards")</li>
+                                    @*<li>@Html.ActionLink("Equipment", "Index", "Equipments")</li>*@
+                                </ul>
+                            </li>
+                        }
+                            <li>@Html.ActionLink("FAQ", "Index", "FAQs")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    }
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year NC Safety - KAB designs</p>
+        </footer>
+    </div>
+    @RenderSection("NCStyle", required: false)
+    @RenderSection("DatePicker", required: false)
+    @RenderSection("Selectivity", required: false)
+    @RenderSection("Bootstrap3DatePicker", required: false)
+    @Styles.Render("~/Content/fullcalendarcss")
+    @Scripts.Render("~/bundles/fullcalendarjs")
+    @RenderSection("scripts", required: false)
+    @RenderSection("accordion", required:false)
+</body>
+</html>

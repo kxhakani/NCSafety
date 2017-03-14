@@ -1,0 +1,89 @@
+﻿@model NCSafety.Models.Item
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Item</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipment.eqName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipment.eqName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hazard.hazName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hazard.hazName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inspection.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inspection.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isGood)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isGood)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isFault)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isFault)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemCorrActionDue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemCorrActionDue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemCorrActionCompleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemComment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemComment)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

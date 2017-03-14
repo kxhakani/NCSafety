@@ -1,0 +1,192 @@
+﻿@*@model IEnumerable<NCSafety.ViewModels.CorrectiveActionReportsVM>*@
+@model IEnumerable<NCSafety.ViewModels.InspectionReportsVM>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+    function ToggleDisplay(id, btn) {
+        var s = document.getElementById(id);
+        var b = document.getElementById(btn);
+        if (s.style.display == 'none') {
+            s.style.display = 'block';
+            b.value = 'Close Search';
+        }
+        else {
+            s.style.display = 'none';
+            b.value = 'Search';
+        }
+    }
+</script>
+@if (!User.IsInRole("SuperAdmin") && User.Identity.IsAuthenticated)
+{
+    <div style="margin:auto;margin-top:10%;text-align:center">
+        <h2>You are not authorized to view this page.</h2>
+        <h2 style="margin-bottom:30px">Please log into a higher security account or register.</h2>
+        <button class="btn ncBtn" onclick="window.location = '/Account/Login'">Log In</button>
+        <button class="btn ncBtn" onclick="window.location='/Account/Register'">Register</button>
+    </div>
+}
+@if (User.IsInRole("SuperAdmin"))
+{
+    <h2>Inspection Reports</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <p>
+        <input type="button" id="btnSearchToggle" onclick="ToggleDisplay('searchTable','btnSearchToggle')" class="btn ncBtn" value="Search" />
+    </p>
+    <div class="col-md-6 col-lg-8" id="searchTable" style="display:none">
+        @using (Html.BeginForm())
+        {
+
+            <table class="table table-condensed">
+                <tr>
+                    <td>Search for Inspector: </td>
+                    <td>@Html.TextBox("InspectionID", null, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>Search for School: </td>
+                    <td>@Html.TextBox("SchoolID", null, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>Search for Lab: </td>
+                    <td>@Html.TextBox("LabID", null, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>Search for Inspector: </td>
+                    <td>@Html.TextBox("HazardID", null, new { @class = "form-control" })</td>
+                </tr>
+                @*<tr>
+                        <td>Search by Completion Date:</td>
+                        <td>@Html.DropDownList("CompletionDateID", null, "All Associate Deans", htmlAttributes: new { @class = "form-control" })</td>
+                    </tr>*@
+                @*<tr>
+                        <td>Search for Associate Dean's Email:</td>
+                        <td>@Html.TextBox("DeanEmailID", null, new { @class = "form-control", @placeholder = "name@emailservice.com" })</td>
+                    </tr>
+                    <tr>
+                        <td>Search for Assistant's Email:</td>
+                        <td>@Html.TextBox("AssistantEmailID", null, new { @class = "form-control", @placeholder = "name@emailservice.com" })</td>
+                    </tr>*@
+                <tr>
+                    <td><input type="button" value="Search" class="btn ncBtn" onclick="window.location='/Reports/InProgress'" /> <input type="button" value="Clear" class="btn ncBtn" onclick="window.location='Index'" /></td>
+                </tr>
+            </table>
+        }
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+}
+    @*<tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HazardID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemCorrActionDue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemComment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SchoolID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.inspDate)
+        </th>
+        </tr>*@
+
+    @*@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem =>item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HazardID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemCorrActionDue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemCorrActionCompleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemComment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SchoolID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LabID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.inspDate)
+                </td>
+            </tr>
+        }*@
+
+
+
+    @*@foreach (var hazard in Model) {
+        @*<tr>
+            <td>
+                @Html.DisplayNameFor(model => model.hazName)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.InspectionID)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.isGood)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.isFault)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.itemCorrActionDue)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.itemCorrActionCompleted)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.itemComment)
+            </td>
+            <td>*@
+    @*@Html.ActionLink("Edit", "Edit", new { id = model.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = hazard.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = hazard.ID })
+                </td>
+
+            </tr>
+        }
+            if(Model.Count() == 0)
+            {
+        <h3>No Records Found.</h3>
+        <br />
+        <a href="/Schools/Create" class="btn ncBtn">Add School</a>
+            }
+        }*@
+
+

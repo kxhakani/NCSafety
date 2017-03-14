@@ -1,0 +1,69 @@
+﻿@*using NCSafety.ViewModels;*@
+
+@*@model IEnumerable<NCSafety.ViewModels.CorrectiveActionNotificationsVM>*@
+
+@model NCSafety.ViewModels.CorrectiveActionNotificationsVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Accordion - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div style="margin:auto;margin-top:10%;text-align:center">
+        <h2>Notifications</h2>
+        <br />
+        <button class="btn ncBtn" onclick="window.location='/Notifications/AllDetails'">All</button>
+        <button class="btn ncBtn" onclick="window.location = '/Notifications/Details'">Corrective Actions</button>
+        <button class="btn ncBtn" onclick="window.location='/Notifications/InspectionDetails'">Inspections</button>
+    </div>
+    <br />
+    <h2>All Notifications</h2>
+
+    <br />
+    <h4>Lab V001: Corrective Action</h4>
+    <div>
+        <h5>Inspected on: January 3rd, 2017 </h5>
+        <p>
+            Follwing corrective action(s) are past due:
+            <ul>
+                <li>Exhaust of Dust</li>
+            </ul>
+        </p>
+        <button class="btn ncBtn" onclick="window.location='/Notifications/Details'">Notify Inspector</button>
+    </div>
+    <br />
+    <h4>Lab V11: Corrective Action</h4>
+    <div>
+        <h5>Inspected on: February 17th, 2017 </h5>
+        <p>Follwing corrective action(s) are past due:</p>
+        <ul>
+            <li>Broken Gaurd</li>
+        </ul>
+        <button class="btn ncBtn" onclick="window.location='/Notifications/Details'">Notify Inspector</button>
+    </div>
+    <br />
+    <h4>Lab TC02: Inspection</h4>
+    <div>
+        <h5>Inspected on: TBA </h5>
+        <p>
+            <ul>
+                <li>Inspection is past due.</li>
+            </ul>
+        </p>
+        <button class="btn ncBtn" onclick="window.location='/Notifications/Details'">Notify Inspector</button>
+    </div>
+    <dl class="dl-horizontal"></dl>
+    <br />
+</body>
+</html>

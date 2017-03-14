@@ -1,0 +1,105 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+}
+
+.logo {
+    width: 90%;
+}
+
+#loginForm h1 {
+    font-size: 75px;
+}
+
+fieldset {
+    border: 3px solid rgb(0, 115, 207);
+    width:100%;
+    padding: 20px;
+}
+
+legend {
+    color: black;
+    width: auto; /* Or auto */
+    padding: 10px;  /* To give a bit of padding on the left and right */
+    border-bottom: none;
+    margin-left: 10px;
+    font-family: Calibri, sans-serif;
+    font-size: 35px;
+}
+
+a {
+    text-decoration: none;
+}
+
+input, select, textarea {
+    max-width: 100%;
+}
+
+#btnLogin{
+    width: 98%;
+}
+
+.txtLogin {
+    width:100%;
+}
+.ncBtn {
+    background: rgb(0, 115, 207);
+    color: #FFF;
+}
+
+.icon {
+    padding: 20px;
+}
+
+#calendar {
+    padding-top: 50px;
+}
+
+h1, h2 {
+    color: #0073CF;
+}
+
+.ui-accordion-header.ui-corner-top.ui-state-default.ui-accordion-header-active.ui-state-active.ui-accordion-icons {
+    background: #0073CF;
+}
+
+.borderless td, .borderless tr, .borderless th {
+    border:1px solid white;
+}
+
+.ddl {
+    width:280px;
+    background-color: #eee;
+    background-image: none;
+    border: 1px solid #ccc;
+    padding-left:5px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.datetimepicker {
+    background-color:#eee;
+    height:40px;
+    width:250px;
+}
+
+@media (max-width: 768px) {
+    .tablet {
+        display:block !important;
+    }
+}    
+@media (min-width: 769px) {
+    .tablet {
+        display:none !important;
+    }
+}    
